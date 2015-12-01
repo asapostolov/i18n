@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "i18n", "i18n\i18n.csproj", "{E7A9BBA3-8A95-492C-8806-4DE63C1DBA06}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{665DB625-BBFD-4E61-89F5-76E9347E9E66}"
 	ProjectSection(SolutionItems) = preProject
 		..\i18n.nuspec = ..\i18n.nuspec
@@ -12,13 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{2FF21CC4-D33E-4A0F-A1A3-B604571D47B8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "i18n", "i18n\i18n.csproj", "{E7A9BBA3-8A95-492C-8806-4DE63C1DBA06}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "i18n.PostBuild", "i18n.PostBuild\i18n.PostBuild.csproj", "{9BE8E007-C6B8-43F7-83D2-E89F51EF8614}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "i18n.Tests", "i18n.Tests\i18n.Tests.csproj", "{EA15ECE8-9513-4290-9438-6F70D288BBDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{2FF21CC4-D33E-4A0F-A1A3-B604571D47B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "i18n.Demo.MVC4", "i18n.Demo.MVC4\i18n.Demo.MVC4.csproj", "{BDF14899-6C45-42E1-A082-A4E0E5DA0F36}"
 EndProject

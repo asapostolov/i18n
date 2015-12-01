@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace i18n.PostBuild
 {
@@ -12,22 +13,25 @@ namespace i18n.PostBuild
                 return;
             }
 
-            var path = args[0];
-            path = path.Trim(new[] {'\"'});
+            var path = new List<string>();
 
+            foreach ( var item in args ) {
+                path.Add( item.Trim( new[] { '\"' } ) );
+            }
+            
             string gettext = null;
             string msgmerge = null;
 
-            for (int i = 1; i < args.Length; i++)
-            {
-                if (args[i].StartsWith("gettext:", StringComparison.InvariantCultureIgnoreCase))
-                    gettext = args[i].Substring(8);
+            //for (int i = 1; i < args.Length; i++)
+            //{
+            //    if (args[i].StartsWith("gettext:", StringComparison.InvariantCultureIgnoreCase))
+            //        gettext = args[i].Substring(8);
 
-                if (args[i].StartsWith("msgmerge:", StringComparison.InvariantCultureIgnoreCase))
-                    msgmerge = args[i].Substring(9);
-            }
+            //    if (args[i].StartsWith("msgmerge:", StringComparison.InvariantCultureIgnoreCase))
+            //        msgmerge = args[i].Substring(9);
+            //}
 
-            new PostBuildTask().Execute(path, gettext, msgmerge);
+            new PostBuildTask().Execute(path.ToArray(), gettext, msgmerge);
         }
     }
 }

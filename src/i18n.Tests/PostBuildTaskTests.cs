@@ -10,7 +10,7 @@ namespace i18n.Tests
         {
             const string path = @"TEST_PROJECT_DIR";
             var task = new PostBuildTask();
-            task.Execute(path);
+            task.Execute(new string[] { path });
         }
     }
 }

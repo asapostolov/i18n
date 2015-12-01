@@ -18,13 +18,13 @@ namespace i18n
         ///<param name="path"></param>
         ///<param name="gettext"> </param>
         ///<param name="msgmerge"> </param>
-        public void Execute(string path, string gettext = null, string msgmerge = null)
+        public void Execute(string[] path, string gettext = null, string msgmerge = null)
         {
-            var manifest = BuildProjectFileManifest(path);
+            var manifest = BuildProjectFileManifest( path );
 
-            CreateMessageTemplate(path, manifest, gettext);
+            CreateMessageTemplate(path[0], manifest, gettext);
 
-            MergeTemplateWithExistingLocales(path, msgmerge);
+            MergeTemplateWithExistingLocales(path[0], msgmerge);
 
             File.Delete(manifest);
         }
@@ -52,7 +52,7 @@ namespace i18n
         private static void CreateMessageTemplate(string path, string manifest, string options)
         {
             // http://www.gnu.org/s/hello/manual/gettext/xgettext-Invocation.html
-            var args = string.Format("{2} -LC# -k_ -k__ --omit-header --from-code=UTF-8 -o\"{0}\\locale\\messages.pot\" -f\"{1}\"", path, manifest, options);
+            var args = string.Format( "{2} -LC# -k_ -k__ --omit-header --from-code=UTF-8 -o\"{0}\\locale\\messages.pot\" -f\"{1}\"", path, manifest, options );
             RunWithOutput("gettext\\xgettext.exe", args); // Mark H bodge
         }
 
@@ -93,15 +93,20 @@ namespace i18n
 			return files.ToArray();
 		}
 
-        private static string BuildProjectFileManifest(string path)
+        private static string BuildProjectFileManifest(params string[] paths)
         {
-			var cs = GetFiles( path, "*.cs" );
-            var razor = GetFiles(path, "*.cshtml");
-            var files = (new[] {cs, razor}).SelectMany(f => f).ToList();
+            var allFiles = new List<string>();
+            foreach ( var path in paths ) {
+                var cs = GetFiles( path, "*.cs" );
+                var razor = GetFiles( path, "*.cshtml" );
+                var files = ( new[] { cs, razor } ).SelectMany( f => f ).ToList();
+                allFiles.AddRange( files );
+            }
+			
             var temp = Path.GetTempFileName();
             using(var sw = File.CreateText(temp))
             {
-                foreach(var file in files)
+                foreach(var file in allFiles)
                 {
                     sw.WriteLine(file);
                 }
