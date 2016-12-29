@@ -186,7 +186,7 @@ namespace i18n
             path = Path.Combine(directory, "messages.po");
         }
 
-        private static void LoadFromDiskAndCache(string culture, string path)
+        public static void LoadFromDiskAndCache(string culture, string path)
         {
             //If the msgstr is 1 word length, e.g. msgstr \"a\", it does not worked
             var quoted = new Regex("(?:\"(?:[^\"]+.)*\")", RegexOptions.Compiled);
@@ -201,7 +201,7 @@ namespace i18n
                     string line;
                     while ((line = fs.ReadLine()) != null)
                     {
-                        if (line.StartsWith("#~"))
+                        if ( line.StartsWith( "#~" ) || line.StartsWith( "#," ) )
                         {
                             continue;
                         }
@@ -291,7 +291,12 @@ namespace i18n
                     return key;
                 }
 
-                var matched = messages.SingleOrDefault(m => m.MsgId.Equals(key));
+                var matched = messages.SingleOrDefault(m => {
+                        if(m.MsgId ==null){
+                            throw new ArgumentException( String.Format( "msgid cannot be null {2} msgstr: {0}{2} comment: {1} ", m.MsgStr, m.Comment, Environment.NewLine ) );
+                        }
+                        return m.MsgId.Equals( key );
+                    });
 
                 if (matched == null)
                 {

@@ -60,10 +60,10 @@ namespace i18n
             return DefaultSettings.LocalizingService.GetText(text, languages);
         }
 
-        public virtual string GetText(HttpContextBase context, string text)
+        public virtual string GetText(HttpContextBase context, string text, string language = null)
         {
             // Prefer a stored value to browser-supplied preferences
-            var stored = GetLanguageFromSession(context);
+            var stored = language == null ? GetLanguageFromSession( context ) : language;
             if (stored != null)
             {
                 text = DefaultSettings.LocalizingService.GetText(text, new[] { stored });

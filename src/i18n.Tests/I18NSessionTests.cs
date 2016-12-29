@@ -16,5 +16,23 @@ namespace i18n.Tests
             var text = session.GetText(context, "Take the <br />next step!");
             Console.WriteLine(text);
         }
+
+        [Test]
+        public void LoadFromDisk() {
+            var context = A.Fake<HttpContextBase>();
+            A.Fake<HttpSessionStateBase>( x => x.Wrapping( context.Session ).Implements(typeof(HttpSessionStateWrapper)) );
+
+            LocalizingService.LoadFromDiskAndCache( "bg-BG", @"C:\GitHub\Property\Property.Web\locale\bg-BG\messages.po" );
+
+            var session = new I18NSession();
+
+            session.Set( context, "bg-BG" );
+
+            var text = session.GetText( context, "Login in bilid", "bg-BG" );
+
+            Assert.True( true );
+
+            Assert.AreEqual( "Вход в bilid", text );
+        }
     }
 }
