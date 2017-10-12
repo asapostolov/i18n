@@ -71,8 +71,8 @@ namespace i18n
             }
 
             // Use the client's browser settings to find a match
-            var languages = context.Request.UserLanguages;
-            text = DefaultSettings.LocalizingService.GetText(text, languages);
+            var languages = context.Request.UserLanguages ?? new string[0];
+            text = DefaultSettings.LocalizingService.GetText( text, languages );
             return HttpUtility.HtmlDecode(text);
         }
 
